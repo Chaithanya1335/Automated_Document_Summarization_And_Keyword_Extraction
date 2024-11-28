@@ -1,95 +1,82 @@
-# Importing the Necessary packages
+# Importing Necessary packages
 import streamlit as st
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_groq import ChatGroq
-from langchain.chains.summarize import load_summarize_chain
-from PyPDF2 import PdfReader
 import os
-from keybert import KeyBERT
-from dotenv import load_dotenv
-import pymongo
 from pymongo import MongoClient
-from urllib.parse import quote_plus
-load_dotenv()
+from src.Components.DataIngestion import DataIngestion
+from src.Components.Summarization import Summarization
+from src.Components.Keyword_extraction import KeywordExtraction
 
-
-
-
-
-
-# Set the page configuration at the beginning
+# Set page configuration
 st.set_page_config("Document Summarization")
 
-st.header(" Document Summarization and Keyword extraction ")
+st.header("Document Summarization and Keyword Extraction")
 
 '''
-In this project we follow the following procedure:
-1) Extract the text from Documents.
-2) Splitting the text into Chunks to match the limit of the LLms input tokens Size.
-3) Creating the chain that tell llms to summarize the documents.
-4) Keywords extraction.
-5) Storing in MongoDB. 
+### Procedure:
+1. Extract text from documents.
+2. Split text into chunks to match the token limit of LLMs.
+3. Summarize the documents.
+4. Extract keywords.
+5. Store results in MongoDB.
 '''
 
-# Configuring The MongoDB
-MONGODB_URI = os.getenv("MONGODB_URI")
+# Configuring MongoDB
+MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017")
 client = MongoClient(MONGODB_URI)
-db = client['app_db']
-collection  = db['summarys']
+db = client["app_db"]
+collection = db["summaries"]
 
-# Getting Groq API Key
+# Sidebar inputs
 with st.sidebar:
-    groq_api_key=st.text_input("Groq API Key",value="",type="password")
+    groq_api_key = st.text_input("Groq API Key", value="", type="password")
+    pdf_docs = st.file_uploader("Upload PDF Files", accept_multiple_files=True)
 
-## Gemma Model Using Groq API
-llm_model =ChatGroq(model="llama3-8b-8192", groq_api_key=groq_api_key)
+# Ensure PDFs are uploaded
+if not pdf_docs:
+    st.warning("Please upload your PDF files.")
+    st.stop()
 
+# Process text from PDFs
+try:
+    text = DataIngestion().initiate_data_Ingestion(pdf_docs)
+    if not text:
+        st.error("Failed to extract text from PDFs.")
+        st.stop()
+except Exception as e:
+    st.error(f"Data ingestion failed: {e}")
+    st.stop()
 
-# Getting pdfs 
-pdf_docs = st.sidebar.file_uploader("Upload your PDF Files and Click on the Submit Button", accept_multiple_files=True)
-
+# Handle Submit
 if st.sidebar.button("Submit"):
+    try:
+        # Split text into chunks
+        splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=1000)
+        docs = splitter.create_documents([text])
 
-    # Text extraction from pdf
-    text=""
-    for pdf in pdf_docs:
-        pdf_reader= PdfReader(pdf)
-        for page in pdf_reader.pages:
-            text+= page.extract_text()
+        print(type(docs))
         
-    # converting entire text into chunks
-    splitter =  RecursiveCharacterTextSplitter(chunk_size = 10000 , chunk_overlap = 1000 )
-    docs = splitter.create_documents([text])
-    
-    # Creating chain 
-    chain=load_summarize_chain(
-        llm=llm_model,
-        chain_type="refine",
-        verbose=True
-    )
-    output_summary=chain.run(docs)
+        # Summarization
+        with st.spinner("Summarizing the document..."):
+            output_summary = Summarization().Summarize(groq_api_key, docs)
 
-    # Extracting Keywords
+        # Keyword extraction
+        with st.spinner("Extracting keywords..."):
+            keywords_extracted = KeywordExtraction().extract_keywords(text)
 
-    keyword_extraction_model = KeyBERT()
-    keywords_with_scores = keyword_extraction_model.extract_keywords(text,keyphrase_ngram_range=(1,1),stop_words="english",use_maxsum = True,diversity=0.2,top_n=20)
-    keywords_extracted = [keyword for keyword, score in keywords_with_scores]
-    
-    # Printing summarized text
+        # Display results
+        st.subheader("Summary:")
+        st.success(output_summary)
 
-    st.write("Summary:")
-    st.success(output_summary)
-    # Printing Keywords
-    st.write("Keywords:")
-    st.success(keywords_extracted)
+        st.subheader("Keywords:")
+        st.success(keywords_extracted)
 
-    # Pushing the Summary & Keywords to MongoDB
-    summarized_output = {"Summary":output_summary,"Keywords":keywords_extracted}
-    collection.insert_one(summarized_output)
-    st.write("Data Pushed To MongoDB")
+        # Save results to MongoDB
+        collection.insert_one({"Summary": output_summary, "Keywords": keywords_extracted})
+        st.success("Results saved to MongoDB.")
 
+    except Exception as e:
+        st.error(f"Processing failed: {e}")
 
-
-
-# Closing the MongoDB connetion
+# Close MongoDB connection
 client.close()

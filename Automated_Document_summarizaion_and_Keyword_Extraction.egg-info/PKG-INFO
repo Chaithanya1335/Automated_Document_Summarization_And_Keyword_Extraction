@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: Automated-Document-summarizaion-and-Keyword-Extraction
+Version: 0.0.1
+Author: M Gnana Chaithanya
+Author-email: m.gnanachaithanya12@gmail.com
+Requires-Dist: langchain
+Requires-Dist: python-dotenv
+Requires-Dist: PyPDF2
+Requires-Dist: streamlit
+Requires-Dist: langchain_groq
+Requires-Dist: keybert
+Requires-Dist: pymongo

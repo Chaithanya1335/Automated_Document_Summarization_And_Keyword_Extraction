@@ -1,0 +1,27 @@
+[ 2024-11-28 07:38:01,991 ] 12 root - INFO - DataIngestion Started
+[ 2024-11-28 07:38:01,991 ] 14 root - INFO - Extracting Text from Pdf Files
+[ 2024-11-28 07:38:02,937 ] 22 root - INFO - Text Extracted
+[ 2024-11-28 07:38:02,937 ] 24 root - INFO - Data Ingestion completed
+[ 2024-11-28 07:38:05,771 ] 12 root - INFO - DataIngestion Started
+[ 2024-11-28 07:38:05,771 ] 14 root - INFO - Extracting Text from Pdf Files
+[ 2024-11-28 07:38:07,631 ] 22 root - INFO - Text Extracted
+[ 2024-11-28 07:38:07,631 ] 24 root - INFO - Data Ingestion completed
+[ 2024-11-28 07:38:10,939 ] 12 root - INFO - DataIngestion Started
+[ 2024-11-28 07:38:10,939 ] 14 root - INFO - Extracting Text from Pdf Files
+[ 2024-11-28 07:38:12,553 ] 22 root - INFO - Text Extracted
+[ 2024-11-28 07:38:12,553 ] 24 root - INFO - Data Ingestion completed
+[ 2024-11-28 07:38:12,553 ] 15 root - INFO - Summarization started
+[ 2024-11-28 07:38:12,553 ] 18 root - INFO - Accessing LLama3 Model from Chatgroq
+[ 2024-11-28 07:38:12,694 ] 22 root - INFO - LLama3 model accessed from chatgroq
+[ 2024-11-28 07:38:12,694 ] 24 root - INFO - Creating Summarize Chain
+[ 2024-11-28 07:38:12,694 ] 31 root - INFO - Running The chain
+[ 2024-11-28 07:38:13,571 ] 1038 httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[ 2024-11-28 07:38:14,771 ] 1038 httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[ 2024-11-28 07:38:15,771 ] 1038 httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[ 2024-11-28 07:38:17,054 ] 1038 httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[ 2024-11-28 07:38:17,921 ] 1038 httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[ 2024-11-28 07:38:17,921 ] 34 root - INFO - Text Summarization completed
+[ 2024-11-28 07:38:17,921 ] 10 root - INFO - Keyword extraction started
+[ 2024-11-28 07:38:17,940 ] 210 sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+[ 2024-11-28 07:38:17,940 ] 218 sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[ 2024-11-28 07:38:36,272 ] 19 root - INFO - Keywords Extracted

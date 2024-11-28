@@ -1,0 +1,4 @@
+[ 2024-11-27 21:00:21,677 ] 12 root - INFO - DataIngestion Started
+[ 2024-11-27 21:00:21,677 ] 14 root - INFO - Extracting Text from Pdf Files
+[ 2024-11-27 21:00:21,677 ] 22 root - INFO - Text Extracted
+[ 2024-11-27 21:01:45,634 ] 1038 httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"

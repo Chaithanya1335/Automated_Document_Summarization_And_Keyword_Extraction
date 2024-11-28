@@ -1,0 +1,14 @@
+README.md
+setup.py
+Automated_Document_summarizaion_and_Keyword_Extraction.egg-info/PKG-INFO
+Automated_Document_summarizaion_and_Keyword_Extraction.egg-info/SOURCES.txt
+Automated_Document_summarizaion_and_Keyword_Extraction.egg-info/dependency_links.txt
+Automated_Document_summarizaion_and_Keyword_Extraction.egg-info/requires.txt
+Automated_Document_summarizaion_and_Keyword_Extraction.egg-info/top_level.txt
+src/Exception.py
+src/__init__.py
+src/logger.py
+src/Components/DataIngestion.py
+src/Components/Keyword_extraction.py
+src/Components/Summarization.py
+src/Components/__init__.py

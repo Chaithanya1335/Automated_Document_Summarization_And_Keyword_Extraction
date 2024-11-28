@@ -1,0 +1,4 @@
+[ 2024-11-27 21:00:49,101 ] 12 root - INFO - DataIngestion Started
+[ 2024-11-27 21:00:49,101 ] 14 root - INFO - Extracting Text from Pdf Files
+[ 2024-11-27 21:00:49,101 ] 22 root - INFO - Text Extracted
+[ 2024-11-27 21:00:49,101 ] 24 root - INFO - Data Ingestion completed

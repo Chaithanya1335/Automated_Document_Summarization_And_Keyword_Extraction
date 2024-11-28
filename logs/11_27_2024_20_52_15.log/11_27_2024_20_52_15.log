@@ -1,0 +1,15 @@
+[ 2024-11-27 20:52:15,940 ] 15 root - INFO - DataIngestion Started
+[ 2024-11-27 20:52:15,941 ] 17 root - INFO - Extracting Text from Pdf Files
+[ 2024-11-27 20:52:15,941 ] 25 root - INFO - Text Extracted
+[ 2024-11-27 20:52:15,942 ] 33 root - INFO - Data Saved
+[ 2024-11-27 20:52:15,943 ] 35 root - INFO - Data Ingestion completed
+[ 2024-11-27 20:52:41,120 ] 15 root - INFO - DataIngestion Started
+[ 2024-11-27 20:52:41,120 ] 17 root - INFO - Extracting Text from Pdf Files
+[ 2024-11-27 20:52:42,938 ] 25 root - INFO - Text Extracted
+[ 2024-11-27 20:52:42,940 ] 33 root - INFO - Data Saved
+[ 2024-11-27 20:52:42,941 ] 35 root - INFO - Data Ingestion completed
+[ 2024-11-27 20:52:44,123 ] 15 root - INFO - DataIngestion Started
+[ 2024-11-27 20:52:44,124 ] 17 root - INFO - Extracting Text from Pdf Files
+[ 2024-11-27 20:52:45,945 ] 25 root - INFO - Text Extracted
+[ 2024-11-27 20:52:45,945 ] 33 root - INFO - Data Saved
+[ 2024-11-27 20:52:45,945 ] 35 root - INFO - Data Ingestion completed

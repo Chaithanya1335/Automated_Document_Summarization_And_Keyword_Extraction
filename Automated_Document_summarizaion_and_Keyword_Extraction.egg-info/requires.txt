@@ -5,4 +5,3 @@ streamlit
 langchain_groq
 keybert
 pymongo
--e .
